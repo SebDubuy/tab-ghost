@@ -1,0 +1,8 @@
+# Landing page (site marketing, pas l'extension)
+landing.html
+
+# Images sources brutes Gemini
+Gemini_Generated_Image_*.png
+
+# Système
+.DS_Store

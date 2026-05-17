@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <style>
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            width: 300px;
+            background-color: #0f172a;
+            font-family: sans-serif;
+            overflow-x: hidden;
+        }
+
+        .container {
+            padding: 20px;
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            color: #f8fafc;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .header img {
+            width: 35px;
+            height: 35px;
+        }
+
+        h2 {
+            font-size: 18px;
+            margin: 0;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        /* Zone des Stats */
+        .stats-row {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .stats-card {
+            flex: 1;
+            background: rgba(56, 189, 248, 0.1);
+            border-radius: 12px;
+            padding: 10px;
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            text-align: center;
+        }
+
+        .stats-card span {
+            display: block;
+            font-size: 20px;
+            font-weight: 800;
+            color: #38bdf8;
+        }
+
+        .stats-card label {
+            font-size: 9px;
+            text-transform: uppercase;
+            color: #94a3b8;
+            font-weight: 600;
+        }
+
+        .field {
+            margin-bottom: 15px;
+        }
+
+        label.title {
+            display: block;
+            font-size: 10px;
+            font-weight: 600;
+            color: #94a3b8;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            box-sizing: border-box;
+            background: rgba(0, 0, 0, 0.2);
+            color: #fff;
+            font-size: 14px;
+        }
+
+        textarea {
+            height: 60px;
+            resize: none;
+            font-size: 12px;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            background: #38bdf8;
+            color: #0f172a;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 700;
+            transition: 0.2s;
+            margin-top: 5px;
+        }
+
+        button:hover {
+            background: #7dd3fc;
+            transform: translateY(-1px);
+        }
+
+        .footer {
+            font-size: 9px;
+            color: #475569;
+            text-align: center;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <img src="icon.png">
+            <h2>Tab Ghost</h2>
+        </div>
+
+        <div class="stats-row">
+            <div class="stats-card">
+                <span id="ghostCount">0</span>
+                <label>Onglets</label>
+            </div>
+            <div class="stats-card">
+                <span id="ramCount">0 Mo</span>
+                <label>RAM Libérée</label>
+            </div>
+        </div>
+
+        <div class="field">
+            <label class="title">Attente (⏳) / Sommeil (👻) en min</label>
+            <div style="display: flex; gap: 10px;">
+                <input type="number" id="waitMin" placeholder="⏳">
+                <input type="number" id="ghostMin" placeholder="👻">
+            </div>
+        </div>
+
+        <div class="field">
+            <label class="title">Whitelist (ex: youtube.com, notion.so)</label>
+            <textarea id="whitelist" placeholder="Un site par ligne..."></textarea>
+        </div>
+
+        <button id="saveBtn">Enregistrer</button>
+        <div class="footer">Économie de RAM activée ⚡</div>
+    </div>
+    <script src="popup.js"></script>
+</body>
+
+</html>

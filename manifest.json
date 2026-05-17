@@ -1,0 +1,25 @@
+{
+    "manifest_version": 3,
+    "name": "Tab Ghost",
+    "version": "1.2",
+    "icons": {
+        "128": "icon.png"
+    },
+    "action": {
+        "default_popup": "popup.html",
+        "default_icon": "icon.png"
+    },
+    "background": {
+        "service_worker": "background.js"
+    },
+    "permissions": [
+        "tabs",
+        "tabGroups",
+        "storage",
+        "alarms",
+        "scripting"
+    ],
+    "host_permissions": [
+        "<all_urls>"
+    ]
+}
