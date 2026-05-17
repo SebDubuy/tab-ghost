@@ -8,7 +8,7 @@ async function init() {
     WAIT_MIN = data.waitMin;
     GHOST_MIN = data.ghostMin;
     WHITELIST = data.whitelist.split('\n').map(s => s.trim()).filter(s => s !== "");
-    await updateBadge();
+    updateBadge();
 }
 init();
 chrome.storage.onChanged.addListener(init);
@@ -28,14 +28,13 @@ chrome.tabs.onActivated.addListener(async (activeInfo) => {
     setTimeout(async () => {
         try {
             const tab = await chrome.tabs.get(activeInfo.tabId);
-            // On nettoie le titre direct
             const clean = tab.title.replace(/[⏳💤]\s*/g, "");
             await updateTitle(tab.id, clean);
 
             const groups = await chrome.tabGroups.query({ title: FOLDER_NAME, windowId: tab.windowId });
             if (groups.length > 0 && tab.groupId === groups[0].id) {
                 await chrome.tabs.ungroup(tab.id);
-                await updateBadge();
+                updateBadge();
             }
         } catch (e) { }
     }, 400);
@@ -60,13 +59,13 @@ chrome.alarms.onAlarm.addListener(async () => {
             await updateTitle(tab.id, "⏳ " + clean);
         }
     }
-    await updateBadge();
+    updateBadge();
 });
 
-// 💤 MISE EN SNOOZE (Le fix est ici !)
+// 💤 MISE EN SNOOZE
 async function moveToDormitory(tab) {
     try {
-        // 1. CHANGER LE TITRE EN PREMIER (Indispensable avant le discard)
+        // 1. CHANGER LE TITRE EN PREMIER
         const clean = tab.title.replace(/[⏳💤]\s*/g, "");
         await updateTitle(tab.id, "💤 " + clean);
 
@@ -81,10 +80,14 @@ async function moveToDormitory(tab) {
         await chrome.tabs.group({ groupId: groupId, tabIds: tab.id });
         await chrome.tabGroups.update(groupId, { collapsed: true });
 
-        // 3. GEL DE L'ONGLET EN DERNIER
-        setTimeout(() => { chrome.tabs.discard(tab.id); }, 500);
+        // 3. GEL DE L'ONGLET SÉCURISÉ (Le correctif est ici avec le .catch)
+        setTimeout(() => {
+            chrome.tabs.discard(tab.id).catch(() => {
+                // L'erreur est attrapée ici et ne s'affiche plus en rouge dans Chrome
+            });
+        }, 500);
 
-        await updateBadge();
+        updateBadge();
     } catch (e) { }
 }
 
