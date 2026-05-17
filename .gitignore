@@ -4,5 +4,8 @@ landing.html
 # Images sources brutes Gemini
 Gemini_Generated_Image_*.png
 
+# Instructions Claude Code (privé)
+CLAUDE.md
+
 # Système
 .DS_Store
